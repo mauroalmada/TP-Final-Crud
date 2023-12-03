@@ -152,16 +152,16 @@ def listar_vehiculos():
 
 # Ruta Mostrar Vehiculo
 @app.route("/vehiculos/<int:codigo>", methods=["GET"])
-def mostrar_producto(codigo):
-    vehiculo = catalogo.consultar_producto(codigo)
+def mostrar_vehiculo(codigo):
+    vehiculo = catalogo.consultar_vehiculo(codigo)
     if vehiculo:
         return jsonify(vehiculo)
     else:
         return "Vehículo no encontrado", 404
 
 # Ruta Agregar Vehiculo    
-@app.route("/productos", methods=["POST"])
-def agregar_producto():
+@app.route("/vehiculos", methods=["POST"])
+def agregar_vehiculo():
     # Recojo los datos del form
     codigo = request.form['Codigo']
     marca = request.form['Marca']
@@ -175,7 +175,7 @@ def agregar_producto():
     nombre_imagen = f"{nombre_base}_{int(time.time())}{extension}"
     foto.save(os.path.join(ruta_destino, nombre_imagen))
 
-    if catalogo.agregar_producto(codigo, marca, modelo, anio, precio, nombre_imagen):
+    if catalogo.agregar_vehiculo(codigo, marca, modelo, anio, precio, nombre_imagen):
         return jsonify({"mensaje": "Vehículo agregado"}), 201
     else:
         return jsonify({"mensaje": "No se completo la carga, el vehículo fue registrado anteriormente"}), 400
