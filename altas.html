@@ -1,45 +1,49 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>CONCESIONARIO CODO A CODO - ALTAS</title>
     <title>ALTA DE VEHICULO</title>
-    <link rel="stylesheet" href="estilos_alta.css">
-</head>
-<body>
-    <header class="encabezado"> 
-
-        <h1>CONCESIONARIO CODO A CODO</h1>
-        
+    <link rel="stylesheet" href="estilos_alta.css" />
+  </head>
+  <body>
+    <header class="encabezado">
+      <h1>CONCESIONARIO CODO A CODO</h1>
     </header>
 
     <h2>INGRESAR ALTA DE VEHICULO</h2>
 
     <!--enctype="multipart/form-data es necesario para enviar archivos al back.-->
     <form id="formulario" enctype="multipart/form-data">
-        <label for="codigo">Código:</label>
-        <input type="text" id="codigo" name="codigo" required><br>
+      <label for="codigo">Código:</label>
+      <input type="text" id="codigo" name="codigo" required /><br />
 
-        <label for="marca">Marca:</label>
-        <input type="text" id="marca" name="marca" required><br>
+      <label for="marca">Marca:</label>
+      <input type="text" id="marca" name="marca" required /><br />
 
-        <label for="modelo">Modelo:</label>
-        <input type="text" id="modelo" name="modelo" required><br>
+      <label for="modelo">Modelo:</label>
+      <input type="text" id="modelo" name="modelo" required /><br />
 
-        <label for="año">Año:</label>
-        <input type="number" id="año" name="año" required><br>
+      <label for="año">Año:</label>
+      <input type="number" id="año" name="año" required /><br />
 
-        <label for="precio">Precio:</label>
-        <input type="number" step="0.01" id="precio" name="precio" required><br>
+      <label for="precio">Precio:</label>
+      <input
+        type="number"
+        step="0.01"
+        id="precio"
+        name="precio"
+        required
+      /><br />
 
-        <label for="foto">Foto:</label>
-        <input type="file" id="foto" name="foto"><br>
+      <label for="foto">Foto:</label>
+      <input type="file" id="foto" name="foto" /><br />
 
-        <button type="submit">Agregar Vehículo</button>
-        <a href="index.html">Menu principal</a>
+      <button type="submit">Agregar Vehículo</button>
+      <a href="index.html">Menu principal</a>
     </form>
 
-    <script src="altas.js"></script>    
-</body>
+    <script src="altas.js"></script>
+  </body>
 </html>
