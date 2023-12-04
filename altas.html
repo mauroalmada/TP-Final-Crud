@@ -19,7 +19,7 @@
     <!--enctype="multipart/form-data es necesario para enviar archivos al back.-->
     <form id="formulario" enctype="multipart/form-data">
         <label for="codigo">Código:</label>
-        <input type="text" id="codigo" name="codigo" required><br>
+        <input type="number" id="codigo" name="codigo" required><br>
 
         <label for="marca">Marca:</label>
         <input type="text" id="marca" name="marca" required><br>
@@ -27,14 +27,14 @@
         <label for="modelo">Modelo:</label>
         <input type="text" id="modelo" name="modelo" required><br>
 
-        <label for="año">Año:</label>
-        <input type="number" id="año" name="año" required><br>
+        <label for="anio">Año:</label>
+        <input type="number" id="anio" name="anio" required><br>
 
         <label for="precio">Precio:</label>
         <input type="number" step="0.01" id="precio" name="precio" required><br>
 
         <label for="foto">Foto:</label>
-        <input type="file" id="foto" name="foto"><br>
+        <input type="text" id="foto" name="foto"><br>
 
         <button type="submit">Agregar Vehículo</button>
         <a href="index.html">Menu principal</a>
