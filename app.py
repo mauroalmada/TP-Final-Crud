@@ -142,7 +142,7 @@ class Catalogo:
 catalogo = Catalogo(host='mauropy.mysql.pythonanywhere-services.com', user='mauropy', password='passDataBase', database='mauropy$app_concesionaria')
 
 # Carpeta para guardar las imagenes
-ruta_destino = 'static/img/'
+ruta_destino = '/home/home/mauropy/mysite/static/img/'
 
 # Listar Vehiculos
 @app.route('/vehiculos', methods={'GET'})
