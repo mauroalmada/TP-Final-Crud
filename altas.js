@@ -13,7 +13,7 @@ document.getElementById('formulario').addEventListener('submit', function (event
     formData.append('precio', document.getElementById('precio').value);
     // formData.append('foto', document.getElementById('foto').value); //files[0]);
     
-    fetch(URL + 'autos', {
+    fetch(URL + 'vehiculos', {
         method: 'POST',
         body: formData // Aquí enviamos formData en lugar de JSON
     })

@@ -1,16 +1,16 @@
-const URL = "http://127.0.0.1:5500/"
+const URL = "http://127.0.0.1:5000/"
 // const URL = "https://mauropy.pythonanywhere.com/";
 
 const app = Vue.createApp({
   data() {
     return {
-      productos: [],
+      vehiculos: [],
     };
   },
   methods: {
-    obtenerProductos() {
+    obtenerVehiculos() {
       // Obtenemos el contenido del inventario
-      fetch(URL + "vehiculo")
+      fetch(URL + "vehiculos")
         .then((response) => {
           // Parseamos la respuesta JSON
           if (response.ok) {
@@ -20,14 +20,14 @@ const app = Vue.createApp({
         .then((data) => {
           // El código Vue itera este elemento para generar la
           tabla;
-          this.productos = data;
+          this.vehiculos = data;
         })
         .catch((error) => {
           console.log("Error:", error);
           alert("Error al obtener los vehículos.");
         });
     },
-    eliminarProducto(codigo) {
+    eliminarVehiculo(codigo) {
       if (confirm("¿Estás seguro de que quieres eliminar este vehículo?")) {
         fetch(URL + `vehiculos/${codigo}`, { method: "DELETE" })
           .then((response) => {

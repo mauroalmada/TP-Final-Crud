@@ -66,8 +66,8 @@ class Catalogo:
         #         return vehiculo
         # return False
 
-    def modificar_vehiculo(self, codigo, nueva_marca, nuevo_modelo, nuevo_anio, nuevo_precio, nueva_foto):
-        sql = f"UPDATE vehiculos SET marca = '{nueva_marca}', modelo = '{nuevo_modelo}', anio = {nuevo_anio}, precio = {nuevo_precio}, foto = '{nueva_foto}' WHERE Codigo = {codigo}"
+    def modificar_vehiculo(self, codigo, nueva_marca, nuevo_modelo, nuevo_anio, nuevo_precio):#, nueva_foto):
+        sql = f"UPDATE vehiculos SET marca = '{nueva_marca}', modelo = '{nuevo_modelo}', año = {nuevo_anio}, precio = {nuevo_precio} #( falta nueva_foto) WHERE Codigo = {codigo}"
         self.cursor.execute(sql)
         self.conn.commit()
         self.cursor.rowcount > 0
@@ -97,7 +97,7 @@ class Catalogo:
             print(f"    Modelo: {vehiculo['Modelo']}")
             print(f"       Año: {vehiculo['Año']}")
             print(f"    Precio: {vehiculo['Precio']}")
-            print(f"      Foto: {vehiculo['Foto']}")
+           # print(f"      Foto: {vehiculo['Foto']}")
             print("-" * 30)
 
     def eliminar_vehiculo(self, codigo):
@@ -124,7 +124,7 @@ class Catalogo:
             print(f"    Modelo: {vehiculo['modelo']}")
             print(f"       Año: {vehiculo['anio']}")
             print(f"    Precio: {vehiculo['precio']}")
-            print(f"      Foto: {vehiculo['foto']}")
+            #print(f"      Foto: {vehiculo['foto']}")
             print("-" * 30)
         else:
             print("Vehículo no encontrado.")
@@ -178,17 +178,17 @@ def modificar_vehiculo(codigo):
     # Recojo los datos del form
     nueva_marca = request.form.get("marca")
     nuevo_modelo = request.form.get("modelo")
-    nuevo_anio = request.form.get("anio")
+    nuevo_anio = request.form.get("año")
     nuevo_precio = request.form.get("precio")
     # Procesamiento de la imagen
-    foto = request.files['foto']
-    nombre_imagen = secure_filename(foto.filename)
-    nombre_base, extension = os.path.splitext(nombre_imagen)
-    nombre_imagen = f"{nombre_base}_{int(time.time())}{extension}"
-    foto.save(os.path.join(ruta_destino, nombre_imagen))
+    # foto = request.files['foto']
+    # nombre_imagen = secure_filename(foto.filename)
+    # nombre_base, extension = os.path.splitext(nombre_imagen)
+    # nombre_imagen = f"{nombre_base}_{int(time.time())}{extension}"
+    # foto.save(os.path.join(ruta_destino, nombre_imagen))
     
     # Actualización del vehículo
-    if catalogo.modificar_vehiculo(codigo, nueva_marca, nuevo_modelo, nuevo_anio, nuevo_precio, nombre_imagen):
+    if catalogo.modificar_vehiculo(codigo, nueva_marca, nuevo_modelo, nuevo_anio, nuevo_precio):#, nombre_imagen):
         return jsonify({"mensaje": "Datos de vehículo modificado"}), 200
     else:
         return jsonify({"mensaje": "Vehículo no encontrado"}), 404
@@ -199,15 +199,15 @@ def eliminar_vehiculo(codigo):
     vehiculo = catalogo.consultar_vehiculo(codigo)
     if vehiculo:
         # Eliminar la imagen asociada si existe
-        ruta_imagen = os.path.join(ruta_destino, vehiculo['foto'])
-        if os.path.exists(ruta_imagen):
-            os.remove(ruta_imagen)
+        # ruta_imagen = os.path.join(ruta_destino, vehiculo['foto'])
+        # if os.path.exists(ruta_imagen):
+        #     os.remove(ruta_imagen)
         # Luego, elimina el producto del catálogo
-        if catalogo.eliminar_vehiculo(codigo):
-            return jsonify({"mensaje": "Vehículo eliminado"}), 200
-        else:
-            return jsonify({"mensaje": "Error al eliminar el vehículo"}), 500
+        # if catalogo.eliminar_vehiculo(codigo):
+        return jsonify({"mensaje": "Vehículo eliminado"}), 200
     else:
+        # return jsonify({"mensaje": "Error al eliminar el vehículo"}), 500
+    # else:
         return jsonify({"mensaje": "Vehículo no encontrado"}), 404
 
 if __name__ == "__main__":

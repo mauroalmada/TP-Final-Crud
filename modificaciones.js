@@ -7,11 +7,11 @@ const app = Vue.createApp({
             codigo: '',
             marca: '',
             modelo: '',
-            anio: '',
+            año: '',
             precio: '',
-            foto: '',
+        /*    foto: '',
             imagenUrlTemp: null,
-            mostrarDatosProducto: false,
+            mostrarDatosProducto: false,*/
         };
     },
 
@@ -30,32 +30,32 @@ const app = Vue.createApp({
                 .then(data => {
                     this.marca = data.marca;
                     this.modelo = data.modelo;
-                    this.anio = data.anio;
+                    this.año = data.anio;
                     this.precio = data.precio;
-                    this.foto = data.foto;
-                    this.mostrarDatosProducto = true;
+                   /* this.foto = data.foto;*/
+                    this.mostrarDatosVehiculo = true;
                 })
                 .catch(error => {
                     console.log(error);
                     alert('Código no encontrado.');
                 })
         },
-        seleccionarImagen(event) {
+       /* seleccionarImagen(event) {
             const file = event.target.files[0];
             this.imagenSeleccionada = file;
-            this.imagenUrlTemp = URL.createObjectURL(file); // Crea una URL temporal para la vista previa
+            this.imagenUrlTemp = URL.createObjectURL(file); // Crea una URL temporal para la vista previa*/
         },
         guardarCambios() {
             const formData = new FormData();
             formData.append('codigo', this.codigo);
             formData.append('marca', this.marca);
             formData.append('modelo', this.modelo);
-            formData.append('anio', this.anio);
+            formData.append('año', this.anio);
             formData.append('precio', this.precio);
 
-            if (this.imagenSeleccionada) {
+         /*   if (this.imagenSeleccionada) {
                 formData.append('foto', this.imagenSeleccionada, this.imagenSeleccionada.name);
-        }
+        }*/
             //Utilizamos fetch para realizar una solicitud PUT a la API y guardar los cambios.
             fetch(URL + 'vehiculos/' + this.codigo, {
                 method: 'PUT',
@@ -85,9 +85,9 @@ const app = Vue.createApp({
             this.modelo = '';
             this.anio = '';
             this.precio = '';
-            this.imagenSeleccionada = null;
+        /*    this.imagenSeleccionada = null;
             this.imagenUrlTemp = null;
-            this.mostrarDatosProducto = false;
+            this.mostrarDatosProducto = false;*/
         }
     }
 });
