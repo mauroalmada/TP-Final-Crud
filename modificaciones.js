@@ -7,7 +7,7 @@ const app = Vue.createApp({
             codigo: '',
             marca: '',
             modelo: '',
-            anio: '',
+            año: '',
             precio: '',
             // foto: '',
             // imagenUrlTemp: null,
@@ -30,7 +30,7 @@ const app = Vue.createApp({
                 .then(data => {
                     this.marca = data.marca;
                     this.modelo = data.modelo;
-                    this.anio = data.anio;
+                    this.año = data.anio;
                     this.precio = data.precio;
                     // this.foto = data.foto;
                     this.mostrarDatosVehiculo = true;
@@ -50,6 +50,7 @@ const app = Vue.createApp({
             formData.append('codigo', this.codigo);
             formData.append('marca', this.marca);
             formData.append('modelo', this.modelo);
+            formData.append('año', this.anio);
             formData.append('año', this.anio);
             formData.append('precio', this.precio);
 
