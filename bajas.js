@@ -10,7 +10,7 @@ const app = Vue.createApp({
   methods: {
     obtenerProductos() {
       // Obtenemos el contenido del inventario
-      fetch(URL + "vehiculo")
+      fetch(URL + "vehiculos")
         .then((response) => {
           // Parseamos la respuesta JSON
           if (response.ok) {
@@ -18,8 +18,7 @@ const app = Vue.createApp({
           }
         })
         .then((data) => {
-          // El código Vue itera este elemento para generar la
-          tabla;
+          // El código Vue itera este elemento para generar la tabla;
           this.productos = data;
         })
         .catch((error) => {

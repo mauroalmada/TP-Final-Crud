@@ -140,6 +140,7 @@ ruta_destino = '/home/mauropy/mysite/static/img/'
 @app.route("/vehiculos", methods=["GET"])
 def listar_vehiculos():
     vehiculos = catalogo.listar_vehiculos()
+    print(vehiculos)
     return jsonify(vehiculos)
 
 # Ruta Mostrar Vehiculo

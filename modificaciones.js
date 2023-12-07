@@ -9,15 +9,15 @@ const app = Vue.createApp({
             modelo: '',
             anio: '',
             precio: '',
-            foto: '',
-            imagenUrlTemp: null,
-            mostrarDatosProducto: false,
+            // foto: '',
+            // imagenUrlTemp: null,
+            mostrarDatosVehiculo: false,
         };
     },
 
     methods: {
         obtenerVehiculo() {
-            fetch(URL + 'vehiculo/' + this.codigo)
+            fetch(URL + 'vehiculos/' + this.codigo)
                 .then(response => {
                     if (response.ok) {
                         return response.json()
@@ -32,30 +32,30 @@ const app = Vue.createApp({
                     this.modelo = data.modelo;
                     this.anio = data.anio;
                     this.precio = data.precio;
-                    this.foto = data.foto;
-                    this.mostrarDatosProducto = true;
+                    // this.foto = data.foto;
+                    this.mostrarDatosVehiculo = true;
                 })
                 .catch(error => {
                     console.log(error);
                     alert('Código no encontrado.');
                 })
         },
-        seleccionarImagen(event) {
-            const file = event.target.files[0];
-            this.imagenSeleccionada = file;
-            this.imagenUrlTemp = URL.createObjectURL(file); // Crea una URL temporal para la vista previa
-        },
+        // seleccionarImagen(event) {
+        //     const file = event.target.files[0];
+        //     this.imagenSeleccionada = file;
+        //     this.imagenUrlTemp = URL.createObjectURL(file); // Crea una URL temporal para la vista previa
+        // },
         guardarCambios() {
             const formData = new FormData();
             formData.append('codigo', this.codigo);
             formData.append('marca', this.marca);
             formData.append('modelo', this.modelo);
-            formData.append('anio', this.anio);
+            formData.append('año', this.anio);
             formData.append('precio', this.precio);
 
-            if (this.imagenSeleccionada) {
-                formData.append('foto', this.imagenSeleccionada, this.imagenSeleccionada.name);
-        }
+        //     if (this.imagenSeleccionada) {
+        //         formData.append('foto', this.imagenSeleccionada, this.imagenSeleccionada.name);
+        // }
             //Utilizamos fetch para realizar una solicitud PUT a la API y guardar los cambios.
             fetch(URL + 'vehiculos/' + this.codigo, {
                 method: 'PUT',
@@ -85,9 +85,9 @@ const app = Vue.createApp({
             this.modelo = '';
             this.anio = '';
             this.precio = '';
-            this.imagenSeleccionada = null;
-            this.imagenUrlTemp = null;
-            this.mostrarDatosProducto = false;
+            // this.imagenSeleccionada = null;
+            // this.imagenUrlTemp = null;
+            // this.mostrarDatosProducto = false;
         }
     }
 });
