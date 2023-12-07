@@ -1,4 +1,6 @@
-const URL = "https://mauropy.pythonanywhere.com/";
+const URL = "http://127.0.0.1:5500/"
+// const URL = "https://mauropy.pythonanywhere.com/";
+
 const app = Vue.createApp({
   data() {
     return {

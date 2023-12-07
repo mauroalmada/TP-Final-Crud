@@ -27,43 +27,34 @@ class Catalogo:
                 raise err
 
         self.cursor.execute('''CREATE TABLE IF NOT EXISTS vehiculos (
-            Codigo INT,
-            Marca VARCHAR(30) NOT NULL,
-            Modelo VARCHAR(255) NOT NULL,
-            Año INT NOT NULL,
-            Precio DECIMAL (10,2) NOT NULL,
-            Foto VARCHAR (255))''')
+            codigo INT,
+            marca VARCHAR(30) NOT NULL,
+            modelo VARCHAR (255) NOT NULL,
+            año INT NOT NULL,
+            precio FLOAT NOT NULL,
+            foto VARCHAR (255)
+            )''')
         self.conn.commit()
         self.cursor.close()
         self.cursor = self.conn.cursor(dictionary=True)
 
         
-    def agregar_vehiculo(self, codigo, marca, modelo, anio, precio, foto):
+    def agregar_vehiculo(self, codigo, marca, modelo, anio, precio): # foto):
         self.cursor.execute(f"SELECT * FROM vehiculos WHERE codigo = {codigo}")
         vehiculo_existe = self.cursor.fetchone()
         if vehiculo_existe:
             return False
         
-        sql = f"INSERT INTO vehiculos (codigo, marca, modelo, anio, precio, foto) VALUES ({codigo}, '{marca}', '{modelo}', {anio}, {precio}, '{foto}')"
+        sql = f"INSERT INTO vehiculos (codigo, marca, modelo, año, precio) VALUES ({codigo}, '{marca}', '{modelo}', {anio}, {precio})" #  '{foto}')" # {precio}"
         self.cursor.execute(sql)
         self.conn.commit()
         return True
-        # agregar_vehiculo() original
-        # if self.consultar_vehiculo(codigo):
-        #     print("No se completo la carga, el vehículo fue registrado anteriormente")
-        #     return False
-        
-        # nuevo_vehiculo = {
-        #     'codigo': codigo,
-        #     'marca': marca,
-        #     'modelo': modelo,
-        #     'anio': anio,
-        #     'precio': precio,
-        #     'foto': foto
-        # }
-        # self.vehiculos.append(nuevo_vehiculo)
-        # print("Vehículo registrado exitosamente")
-        # return True
+
+    def listar_vehiculos(self):
+            self.cursor.execute("SELECT * FROM vehiculos")
+            vehiculos = self.cursor.fetchall()
+            print(vehiculos)
+            return vehiculos
 
     def consultar_vehiculo(self, codigo):
         self.cursor.execute(f"SELECT * FROM vehiculos WHERE codigo = {codigo}")
@@ -139,13 +130,14 @@ class Catalogo:
             print("Vehículo no encontrado.")
 
 # Crear una instancia de la clase catalogo
-catalogo = Catalogo(host='mauropy.mysql.pythonanywhere-services.com', user='mauropy', password='passDataBase', database='mauropy$app_concesionaria')
+# catalogo = Catalogo(host='mauropy.mysql.pythonanywhere-services.com', user='mauropy', password='passDataBase', database='mauropy$app_concesionaria')
+catalogo = Catalogo(host='localhost', user='root', password='', database='app_concesionaria')
 
 # Carpeta para guardar las imagenes
-ruta_destino = '/home/home/mauropy/mysite/static/img/'
+ruta_destino = '/home/mauropy/mysite/static/img/'
 
 # Listar Vehiculos
-@app.route('/vehiculos', methods={'GET'})
+@app.route("/vehiculos", methods=["GET"])
 def listar_vehiculos():
     vehiculos = catalogo.listar_vehiculos()
     return jsonify(vehiculos)
@@ -166,16 +158,17 @@ def agregar_vehiculo():
     codigo = request.form['codigo']
     marca = request.form['marca']
     modelo = request.form['modelo']
-    anio = request.form['anio']
+    anio = request.form['año']
     precio = request.form['precio']
-    foto = request.files['foto']
-    nombre_imagen = secure_filename(foto.filename)
+    # foto = request.form['foto']
+    # foto = request.files['foto']
+    # nombre_imagen = secure_filename(foto.filename)
 
-    nombre_base, extension = os.path.splitext(nombre_imagen)
-    nombre_imagen = f"{nombre_base}_{int(time.time())}{extension}"
-    foto.save(os.path.join(ruta_destino, nombre_imagen))
+    # nombre_base, extension = os.path.splitext(nombre_imagen)
+    # nombre_imagen = f"{nombre_base}_{int(time.time())}{extension}"
+    # foto.save(os.path.join(ruta_destino, nombre_imagen))  
 
-    if catalogo.agregar_vehiculo(codigo, marca, modelo, anio, precio, nombre_imagen):
+    if catalogo.agregar_vehiculo(codigo, marca, modelo, anio, precio): # foto): # nombre_imagen):
         return jsonify({"mensaje": "Vehículo agregado"}), 201
     else:
         return jsonify({"mensaje": "No se completo la carga, el vehículo fue registrado anteriormente"}), 400

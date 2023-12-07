@@ -1,4 +1,5 @@
-const URL = "https://mauropy.pythonanywhere.com/"
+const URL = "http://127.0.0.1:5000/"
+// const URL = "https://mauropy.pythonanywhere.com/"
 
 // Realizamos la solicitud GET al servidor para obtener todos los productos
 fetch(URL + 'vehiculos')
