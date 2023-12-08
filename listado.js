@@ -19,9 +19,9 @@ fetch(URL + 'vehiculos')
             let fila = document.createElement('tr');
             fila.innerHTML = '<td>' + vehiculo.codigo + '</td>' +
                 '<td>' + vehiculo.marca + '</td>' +
-                '<td align="right">' + vehiculo.modelo + '</td>' +
-                '<td align="right">' + vehiculo.anio + '</td>' +
-                '<td align="right">' + vehiculo.precio + '</td>' +
+                '<td>' + vehiculo.modelo + '</td>' +
+                '<td align="center">' + vehiculo.año + '</td>' +
+                '<td align="center">' + vehiculo.precio + '</td>' +
                 // Mostrar miniatura de la imagen
                 //'<td><img src=static/img/' + vehiculo.foto +' <alt="Imagen del producto" style="width: 100px;"></td>';
                 //Una vez que se crea la fila con el contenido del producto, se agrega a la tabla utilizando el método appendChild del elemento tablaProductos.

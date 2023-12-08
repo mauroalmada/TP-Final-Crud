@@ -31,7 +31,7 @@ class Catalogo:
             marca VARCHAR(30) NOT NULL,
             modelo VARCHAR (255) NOT NULL,
             año INT NOT NULL,
-            precio FLOAT NOT NULL,
+            precio DECIMAL (10,2) NOT NULL,
             foto VARCHAR (255)
             )''')
         self.conn.commit()
@@ -60,63 +60,24 @@ class Catalogo:
         self.cursor.execute(f"SELECT * FROM vehiculos WHERE codigo = {codigo}")
         return self.cursor.fetchone()
 
-        # consultar_vehiculo() original
-        # for vehiculo in self.vehiculos:
-        #     if vehiculo['codigo'] == codigo:
-        #         return vehiculo
-        # return False
-
     def modificar_vehiculo(self, codigo, nueva_marca, nuevo_modelo, nuevo_anio, nuevo_precio):#, nueva_foto):
-        sql = f"UPDATE vehiculos SET marca = '{nueva_marca}', modelo = '{nuevo_modelo}', año = {nuevo_anio}, precio = {nuevo_precio} #( falta nueva_foto) WHERE Codigo = {codigo}"
+        sql = f"UPDATE vehiculos SET marca = '{nueva_marca}', modelo = '{nuevo_modelo}', año = {nuevo_anio}, precio = {nuevo_precio} WHERE codigo = {codigo}" #( falta nueva_foto)
         self.cursor.execute(sql)
         self.conn.commit()
         self.cursor.rowcount > 0
-
-        # modificar_vehiculo() original        
-        # for vehiculo in self.vehiculos:
-        #     if vehiculo['codigo'] == codigo:
-        #         vehiculo['marca'] = nueva_marca
-        #         vehiculo['modelo'] = nuevo_modelo
-        #         vehiculo['anio'] = nuevo_anio
-        #         vehiculo['precio'] = nuevo_precio
-        #         vehiculo['foto'] = nueva_foto
-        #         print("Información modificada exitosamente")
-        #         return True
-        # print("Vehículo no encontrado")
-        # return False
 
     def listar_vehiculos(self):
         self.cursor.execute("SELECT * FROM vehiculos")
         vehiculos = self.cursor.fetchall()
         return vehiculos
-        
-        print("-" * 30)
-        for vehiculo in vehiculos:
-            print(f"    Codigo: {vehiculo['Codigo']}")
-            print(f"     Marca: {vehiculo['Marca']}")
-            print(f"    Modelo: {vehiculo['Modelo']}")
-            print(f"       Año: {vehiculo['Año']}")
-            print(f"    Precio: {vehiculo['Precio']}")
-           # print(f"      Foto: {vehiculo['Foto']}")
-            print("-" * 30)
 
     def eliminar_vehiculo(self, codigo):
         self.cursor.execute(f"DELETE FROM vehiculos WHERE codigo = {codigo}")
         self.conn.commit()
         return self.cursor.rowcount > 0
-        
-        # eliminar_vehiculo() original
-        # for vehiculo in self.vehiculos:
-        #     if vehiculo['codigo'] == codigo:
-        #         self.vehiculos.remove(vehiculo)
-        #         print("El vehículo ha sido eliminado")
-        #         return True
-        # print("Vehículo no encontrado")
-        # return False
 
     def mostrar_vehiculo(self, codigo):
-        self.cursor.execute(f"SELECT * FROM vehiculos WHERE codigo = {codigo}")
-        vehiculo = self.cursor.fetchone()
+        vehiculo = self.consultar_vehiculo(codigo)
         if vehiculo:
             print("-" * 30)
             print(f"    Codigo: {vehiculo['codigo']}")
@@ -197,14 +158,14 @@ def modificar_vehiculo(codigo):
 @app.route("/vehiculos/<int:codigo>", methods=["DELETE"])
 def eliminar_vehiculo(codigo):
     # Primero, obtén la información del producto para encontrar la imagen
-    vehiculo = catalogo.consultar_vehiculo(codigo)
-    if vehiculo:
+    # vehiculo = catalogo.consultar_vehiculo(codigo)
+    # if vehiculo:
         # Eliminar la imagen asociada si existe
         # ruta_imagen = os.path.join(ruta_destino, vehiculo['foto'])
         # if os.path.exists(ruta_imagen):
         #     os.remove(ruta_imagen)
         # Luego, elimina el producto del catálogo
-        # if catalogo.eliminar_vehiculo(codigo):
+    if catalogo.eliminar_vehiculo(codigo):
         return jsonify({"mensaje": "Vehículo eliminado"}), 200
     else:
         # return jsonify({"mensaje": "Error al eliminar el vehículo"}), 500
@@ -213,18 +174,3 @@ def eliminar_vehiculo(codigo):
 
 if __name__ == "__main__":
     app.run(debug=True)
-
-# catalogo.agregar_vehiculo(1, 'Fiat', 'Palio 1.6', 2015, 4999999.99, 'palio.jpg')
-# catalogo.agregar_vehiculo(2, 'Renault', 'Megane 2.0', 2009, 3999999.99, 'megane.jpg')
-# agregar_vehiculo(2, 'Renault', 'Megane 2.0', 2009, 3999999.99, 'megane.jpg') # probamos que no agruegue codigo duplicado
-# catalogo.agregar_vehiculo(3, 'Ford', 'Fiesta 1,6T', 2017, 6000000.00, 'fiesta.jpg')
-# listar_vehiculos()
-# catalogo.eliminar_vehiculo(3)
-# catalogo.modificar_vehiculo(1, 'Fiat', 'Palio 1.3', 2015, 4999999.99, 'palio.jpg')
-# catalogo.listar_vehiculos()
-
-# catalogo.mostrar_vehiculo(8)
-# catalogo.consultar_vehiculo(1)
-
-# catalogo.mostrar_vehiculo(3)
-# catalogo.mostrar_vehiculo(8)

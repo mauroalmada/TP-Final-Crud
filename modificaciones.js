@@ -1,96 +1,76 @@
 const URL = "http://127.0.0.1:5000/"
-// const URL = "https://mauropy.pythonanywhere.com/"
+        // const URL = "https://arielfsp.pythonanywhere.com/"
 
-const app = Vue.createApp({
-    data() {
-        return {
-            codigo: '',
-            marca: '',
-            modelo: '',
-            año: '',
-            precio: '',
-            // foto: '',
-            // imagenUrlTemp: null,
-            mostrarDatosVehiculo: false,
-        };
-    },
+        const app = Vue.createApp({
+            data() {
+                return {
+                    codigo: '',
+                    marca: '',
+                    modelo: '',
+                    año: '',
+                    precio: '',
+                    // imagen_url: '',
+                    // imagenUrlTemp: null,
+                    mostrarDatosVehiculo: false,
+                };
+            },
+            methods: {
+                obtenerVehiculo() {
+                    fetch(URL + 'vehiculos/' + this.codigo)
+                        .then(response => response.json())
+                        .then(data => {
+                            this.marca = data.marca;
+                            this.modelo = data.modelo;
+                            this.año = data.año;
+                            this.precio = data.precio;
+                            // this.imagen_url =  "" //data.imagen_url;
+                            this.mostrarDatosVehiculo = true;
+                        })
+                        .catch(error => console.error('Error:', error));
+                },
+                seleccionarImagen(event) {
+                    //const file = event.target.files[0];
+                    //this.imagenSeleccionada = file;
+                    //this.imagenUrlTemp = URL.createObjectURL(file); // Crea una URL temporal para la vista previa
+                },
+                guardarCambios() {
+                    const formData = new FormData();
+                    formData.append('codigo', this.codigo);
+                    formData.append('marca', this.marca);
+                    formData.append('modelo', this.modelo);
+                    formData.append('año', this.año);
+                    formData.append('precio', this.precio);
 
-    methods: {
-        obtenerVehiculo() {
-            fetch(URL + 'vehiculos/' + this.codigo)
-                .then(response => {
-                    if (response.ok) {
-                        return response.json()
-                    } else {
-                        //Si la respuesta es un error, lanzamos una excepción para ser "catcheada" más adelante en el catch.
-                        throw new Error('Error al obtener los datos del vehículo.')
-                    }
-                })
+                    //if (this.imagenSeleccionada) {
+                    //    formData.append('imagen', this.imagenSeleccionada, this.imagenSeleccionada.name);
+                    //}
 
-                .then(data => {
-                    this.marca = data.marca;
-                    this.modelo = data.modelo;
-                    this.año = data.anio;
-                    this.precio = data.precio;
-                    // this.foto = data.foto;
-                    this.mostrarDatosVehiculo = true;
-                })
-                .catch(error => {
-                    console.log(error);
-                    alert('Código no encontrado.');
-                })
-        },
-        // seleccionarImagen(event) {
-        //     const file = event.target.files[0];
-        //     this.imagenSeleccionada = file;
-        //     this.imagenUrlTemp = URL.createObjectURL(file); // Crea una URL temporal para la vista previa
-        // },
-        guardarCambios() {
-            const formData = new FormData();
-            formData.append('codigo', this.codigo);
-            formData.append('marca', this.marca);
-            formData.append('modelo', this.modelo);
-            formData.append('año', this.anio);
-            formData.append('año', this.anio);
-            formData.append('precio', this.precio);
-
-        //     if (this.imagenSeleccionada) {
-        //         formData.append('foto', this.imagenSeleccionada, this.imagenSeleccionada.name);
-        // }
-            //Utilizamos fetch para realizar una solicitud PUT a la API y guardar los cambios.
-            fetch(URL + 'vehiculos/' + this.codigo, {
-                method: 'PUT',
-                body: formData,
-            })
-            .then(response => {
-                //Si la respuesta es exitosa, utilizamos response.json() para parsear la respuesta en formato JSON.
-                if (response.ok) {
-                    return response.json()
-                } else {
-                    //Si la respuesta es un error, lanzamos una excepción.
-                    throw new Error('Error al guardar los cambios del vehículo.')
+                    fetch(URL + 'vehiculos/' + this.codigo, {
+                        method: 'PUT',
+                        body: formData,
+                    })
+                        .then(response => response.json())
+                        .then(data => {
+                            alert('Vehículo actualizado correctamente');
+                            this.limpiarFormulario();
+                        })
+                        .catch(error => {
+                            console.error('Error:', error);
+                            alert('Error al actualizar el producto');
+                        });
+                },
+                limpiarFormulario() {
+                    this.codigo = '';
+                    this.marca = '';
+                    this.modelo = '';
+                    this.año = '';
+                    this.precio = '';
+                    // this.imagen_url = '';
+                    // this.imagenSeleccionada = null;
+                    // this.imagenUrlTemp = null;
+                    this.mostrarDatosVehiculo = false;
                 }
-            })
-            .then(data => {
-                alert('Vehículo actualizado correctamente.');
-                this.limpiarFormulario();
-            })
-            .catch(error => {
-                console.error('Error:', error);
-                alert('Error al actualizar el vehículo.');
-            });
-        },
-        limpiarFormulario() {
-            this.codigo = '';
-            this.marca = '';
-            this.modelo = '';
-            this.anio = '';
-            this.precio = '';
-            // this.imagenSeleccionada = null;
-            // this.imagenUrlTemp = null;
-            // this.mostrarDatosProducto = false;
-        }
-    }
-});
+            }
+        });
 
-app.mount('#app');
+        app.mount('#app');
