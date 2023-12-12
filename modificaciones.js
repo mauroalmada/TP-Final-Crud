@@ -28,11 +28,11 @@ const URL = "http://127.0.0.1:5000/"
                         })
                         .catch(error => console.error('Error:', error));
                 },
-                seleccionarImagen(event) {
+                // seleccionarImagen(event) {
                     //const file = event.target.files[0];
                     //this.imagenSeleccionada = file;
                     //this.imagenUrlTemp = URL.createObjectURL(file); // Crea una URL temporal para la vista previa
-                },
+                // },
                 guardarCambios() {
                     const formData = new FormData();
                     formData.append('codigo', this.codigo);
@@ -56,7 +56,7 @@ const URL = "http://127.0.0.1:5000/"
                         })
                         .catch(error => {
                             console.error('Error:', error);
-                            alert('Error al actualizar el producto');
+                            alert('Error al actualizar el vehículo');
                         });
                 },
                 limpiarFormulario() {

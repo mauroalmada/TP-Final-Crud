@@ -4,6 +4,11 @@
 /*Estilos del Encabezado*/
 /*******************************/
 
+#tablaVehiculos{
+  align-items: center;
+  text-align: center;
+}
+
 .encabezado {
     font-size: 100%;
     justify-content: space-around;

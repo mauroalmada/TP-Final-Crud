@@ -19,18 +19,18 @@
           <th>Código</th>
           <th>Marca</th>
           <th>Modelo</th>
-          <th align="right">Año</th>
+          <th>Año</th>
           <th>Precio</th>
           <!-- <th>Foto</th> -->
         </tr>
       </thead>
       <tbody>
-        <tr v-for="vehiculo in vehiculos">
+        <tr v-for="vehiculo in vehiculos" id="tablaVehiculos">
           <td>{{ vehiculo.codigo }}</td>
           <td>{{ vehiculo.marca }}</td>
           <td>{{ vehiculo.modelo }}</td>
-          <td align="right">{{ vehiculo.año }}</td>
-          <td align="right">{{ vehiculo.precio }}</td>
+          <td>{{ vehiculo.año }}</td>
+          <td>{{ vehiculo.precio }}</td>
           <td>
             <button @click="eliminarVehiculo(vehiculo.codigo)">Eliminar</button>
           </td>

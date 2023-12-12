@@ -24,7 +24,7 @@ document.getElementById('formulario').addEventListener('submit', function (event
         } else {
             // Si hubo un error, lanzar explícitamente una excepción
             // para ser "catcheada" más adelante
-            throw new Error('Error al agregar el producto.');
+            throw new Error('Error al agregar el vehículo.');
         }
     })    
     .then(function () {
@@ -43,7 +43,7 @@ document.getElementById('formulario').addEventListener('submit', function (event
         document.getElementById('modelo').value = "";
         document.getElementById('año').value = "";
         document.getElementById('precio').value = "";
-        //document.getElementById('proveedorProducto').value = "";
+        // document.getElementById('foto').value = "";
     })
    
 })

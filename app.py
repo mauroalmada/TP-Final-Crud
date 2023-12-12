@@ -95,7 +95,8 @@ class Catalogo:
 catalogo = Catalogo(host='localhost', user='root', password='', database='app_concesionaria')
 
 # Carpeta para guardar las imagenes
-ruta_destino = '/home/mauropy/mysite/static/img/'
+# ruta_destino = '/home/mauropy/mysite/static/img/'
+ruta_destino = './set_imagenes/'
 
 # Listar Vehiculos
 @app.route("/vehiculos", methods=["GET"])
@@ -130,7 +131,7 @@ def agregar_vehiculo():
     # nombre_imagen = f"{nombre_base}_{int(time.time())}{extension}"
     # foto.save(os.path.join(ruta_destino, nombre_imagen))  
 
-    if catalogo.agregar_vehiculo(codigo, marca, modelo, anio, precio): # foto): # nombre_imagen):
+    if catalogo.agregar_vehiculo(codigo, marca, modelo, anio, precio): # (foto, nombre_imagen):
         return jsonify({"mensaje": "Vehículo agregado"}), 201
     else:
         return jsonify({"mensaje": "No se completo la carga, el vehículo fue registrado anteriormente"}), 400
