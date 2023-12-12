@@ -96,7 +96,7 @@ catalogo = Catalogo(host='mauropy.mysql.pythonanywhere-services.com', user='maur
 
 # Carpeta para guardar las imagenes
 ruta_destino = '/home/mauropy/mysite/static/img/'
-# ruta_destino = './set_imagenes/'
+ruta_destino = './set_imagenes/'
 
 # Listar Vehiculos
 @app.route("/vehiculos", methods=["GET"])
